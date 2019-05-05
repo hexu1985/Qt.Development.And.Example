@@ -40,6 +40,7 @@ public slots:
     void slotDisconnected();
     void dataReceived();
     void slotSend();
+    void slotPortTextChanged(QString str);
 };
 
 #endif // TCPCLIENT_H

@@ -44,6 +44,8 @@ TcpClient::TcpClient(QWidget *parent,Qt::WindowFlags f)
 
     connect(enterBtn,SIGNAL(clicked()),this,SLOT(slotEnter()));
     connect(sendBtn,SIGNAL(clicked()),this,SLOT(slotSend()));
+    connect(portLineEdit,SIGNAL(textChanged(QString)),this,
+            SLOT(slotPortTextChanged(QString)));
 
     sendBtn->setEnabled(false);
 }
@@ -140,4 +142,9 @@ void TcpClient::dataReceived()
         QString msg=datagram.data();
         contentListWidget->addItem(msg.left(datagram.size()));
     }
+}
+
+void TcpClient::slotPortTextChanged(QString str)
+{
+    port = str.toInt();
 }
