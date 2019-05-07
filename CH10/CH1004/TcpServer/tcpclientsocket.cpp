@@ -1,18 +1,24 @@
 #include "tcpclientsocket.h"
 
-TcpClientSocket::TcpClientSocket(QObject *parent)
+TcpClientSocket::TcpClientSocket(QTcpSocket *tcpSocket, QObject *parent)
+    : tcpSocket(tcpSocket)
 {
-    connect(this,SIGNAL(readyRead()),this,SLOT(dataReceived()));
-    connect(this,SIGNAL(disconnected()),this,SLOT(slotDisconnected()));
+    connect(tcpSocket,SIGNAL(readyRead()),this,SLOT(dataReceived()));
+    connect(tcpSocket,SIGNAL(disconnected()),this,SLOT(slotDisconnected()));
+}
+
+QTcpSocket *TcpClientSocket::getTcpSocket()
+{
+    return tcpSocket;
 }
 
 void TcpClientSocket::dataReceived()
 {
-    while(bytesAvailable()>0)
+    while (tcpSocket->bytesAvailable()>0)
     {
-        int length = bytesAvailable();
+        int length = tcpSocket->bytesAvailable();
         char buf[1024];
-        read(buf,length);
+        tcpSocket->read(buf,length);
 
         QString msg=buf;
         emit updateClients(msg,length);
@@ -21,5 +27,5 @@ void TcpClientSocket::dataReceived()
 
 void TcpClientSocket::slotDisconnected()
 {
-    emit disconnected(this->socketDescriptor());
+    emit disconnected(tcpSocket);
 }

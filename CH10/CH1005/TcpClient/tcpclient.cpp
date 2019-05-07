@@ -104,7 +104,7 @@ void TcpClient::slotConnected()
     enterBtn->setText(tr("离开"));
 
     int length=0;
-    QString msg=userName+tr(":Enter Chat Room\n");
+    QString msg=userName+tr(":Enter Chat Room");
     if((length=tcpSocket->write(msg.toLatin1(),msg.length()))!=msg.length())
     {
         return;
@@ -118,7 +118,7 @@ void TcpClient::slotSend()
         return ;
     }
 
-    QString msg=userName+":"+sendLineEdit->text()+"\n";
+    QString msg=userName+":"+sendLineEdit->text();
 
     tcpSocket->write(msg.toLatin1(),msg.length());
     sendLineEdit->clear();

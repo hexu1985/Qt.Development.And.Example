@@ -1,4 +1,5 @@
 #include "tcpserver.h"
+#include <QDebug>
 
 TcpServer::TcpServer(QWidget *parent,Qt::WindowFlags f)
     : QDialog(parent,f)
@@ -18,10 +19,11 @@ TcpServer::TcpServer(QWidget *parent,Qt::WindowFlags f)
     mainLayout->addWidget(PortLineEdit,1,1);
     mainLayout->addWidget(CreateBtn,2,0,1,2);
 
-    port=8010;
+    port=9999;
     PortLineEdit->setText(QString::number(port));
 
     connect(CreateBtn,SIGNAL(clicked()),this,SLOT(slotCreateServer()));
+    qDebug() << "init TcpServer ok!\n";
 }
 
 TcpServer::~TcpServer()

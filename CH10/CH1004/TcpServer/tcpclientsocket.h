@@ -4,14 +4,21 @@
 #include <QTcpSocket>
 #include <QObject>
 
-class TcpClientSocket : public QTcpSocket
+class TcpClientSocket: public QObject
 {
     Q_OBJECT
+
+private:
+    QTcpSocket *tcpSocket;
+
 public:
-    TcpClientSocket(QObject *parent=0);
+    TcpClientSocket(QTcpSocket *tcpSocket, QObject *parent=0);
+    QTcpSocket *getTcpSocket();
+
 signals:
     void updateClients(QString,int);
-    void disconnected(int);
+    void disconnected(QTcpSocket *);
+
 protected slots:
     void dataReceived();
     void slotDisconnected();
