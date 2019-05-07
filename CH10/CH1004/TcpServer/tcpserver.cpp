@@ -23,7 +23,8 @@ TcpServer::TcpServer(QWidget *parent,Qt::WindowFlags f)
     PortLineEdit->setText(QString::number(port));
 
     connect(CreateBtn,SIGNAL(clicked()),this,SLOT(slotCreateServer()));
-    qDebug() << "init TcpServer ok!\n";
+    connect(PortLineEdit,SIGNAL(textChanged(QString)),this,
+            SLOT(slotPortTextChanged(QString)));
 }
 
 TcpServer::~TcpServer()
@@ -43,3 +44,9 @@ void TcpServer::updateServer(QString msg,int length)
 {
     ContentListWidget->addItem(msg.left(length));
 }
+
+void TcpServer::slotPortTextChanged(QString str)
+{
+    port = str.toInt();
+}
+
