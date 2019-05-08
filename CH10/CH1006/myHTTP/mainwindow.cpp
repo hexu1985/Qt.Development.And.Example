@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     manager = new QNetworkAccessManager(this);
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(replyFinished(QNetworkReply*)));
-    manager->get(QNetworkRequest(QUrl("http://www.baidu.com")));
+    manager->get(QNetworkRequest(QUrl("http://127.0.0.1:8000/")));
 
     ui->progressBar->hide();
 
